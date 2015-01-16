@@ -1,0 +1,24 @@
+.icon{
+	display:inline-block;
+	background-image:url('img/{{spritesheet_name}}.png');
+	@media
+		only screen and (-webkit-min-device-pixel-ratio: 2),
+		only screen and (   min--moz-device-pixel-ratio: 2),
+		only screen and (     -o-min-device-pixel-ratio: 2/1),
+		only screen and (        min-device-pixel-ratio: 2),
+		only screen and (                min-resolution: 192dpi),
+		only screen and (                min-resolution: 2dppx) {
+
+		background-image:url('img/{{spritesheet_name}}@2x.png');
+		background-size: {{spritesheet.px.width}} {{spritesheet.px.height}};
+	}
+}
+
+{{#items}}
+.icon-{{name}}{
+	@extend .icon;
+	width: {{px.width}};
+	height: {{px.height}};
+	background-position: {{px.offset_x}} {{px.offset_y}}
+}
+{{/items}}
