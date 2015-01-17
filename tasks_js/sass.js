@@ -1,7 +1,5 @@
 var gulp = require('gulp');
 var $ = require("gulp-load-plugins")();
-var browserSync = require("browser-sync");
-var reload = browserSync.reload;
 var path = global.path;
 var browser_support = global.browser_support;
 
@@ -15,7 +13,4 @@ gulp.task('sass', function(){
         }))
         .pipe(gulp.dest(path.css))
         .pipe($.size())
-        .pipe(reload({
-            stream: true
-        }))
 });
