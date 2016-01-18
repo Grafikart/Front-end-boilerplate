@@ -1,10 +1,11 @@
 outdatedBrowser = require('./modules/outdatedbrowser')
+Sharer = require('./modules/social')
 
-jQuery ($) ->
+new Sharer('MonPseudo')
 
-  # Sorry IE :(
-  outdatedBrowser
-    bgColor: '#f25648'
-    color: '#ffffff'
-    lowerThan: 'boxShadow'
-    languagePath: ''
+# Sorry IE :(
+outdatedBrowser
+  bgColor: '#f25648'
+  color: '#ffffff'
+  lowerThan: 'boxShadow'
+  languagePath: ''

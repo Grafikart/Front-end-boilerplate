@@ -4,26 +4,28 @@
   "description": "",
   "main": "gulp.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "update": "npm-check-updates -u"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "browser-sync": "^1.7.2",
+    "browser-sync": "^2.11.0",
     "coffee-script": "^1.8.0",
+    "require-dir": "^0.3.0",
+    "foundation-sites": "^6.1.1",
+    "motion-ui": "^1.1.1",
     "gulp": "^3.8.10",
-    "gulp-autoprefixer": "^2.0.0",
-    "gulp-changed": "^1.1.0",
-    "gulp-coffeeify": "^0.1.2",
-    "gulp-image-resize": "^0.6.0",
-    "gulp-imagemin": "^2.1.0",
-    "gulp-load-plugins": "^0.8.0",
+    "gulp-autoprefixer": "^3.1.0",
+    "gulp-plumber": "*",
+    "gulp-load-plugins": "^1.2.0",
     "gulp-rename": "^1.2.0",
-    "gulp-sass": "^1.2.4",
-    "gulp-size": "^1.1.0",
-    "gulp-watch": "^3.0.0",
-    "gulp.spritesmith": "^2.0.1",
-    "require-dir": "^0.1.0"
+    "gulp-sass": "^2.1.1",
+    "gulp-size": "^2.0.0",
+    "gulp-watch": "^4.3.5",
+    "gulp-browserify": "^0.5.1",
+    "coffeeify": "^2.0.1",
+    "gulp-svg-sprite": "^1.2.19",
+    "gulp-svgmin": "^1.2.0"
   },
   "dependencies": {
   }
