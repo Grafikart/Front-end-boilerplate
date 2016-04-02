@@ -34,6 +34,14 @@ module.exports = {
         loader: 'babel',
         include: root,
         exclude: /node_modules/
+      },
+      {
+        test: /\.(png|jpg|gif|svg|woff2?|eot|ttf)(\?.*)?$/,
+        loader: 'url',
+        query: {
+          limit: 10000,
+          name: '[name]-[hash:7].[ext]'
+        }
       }
     ]
   },
