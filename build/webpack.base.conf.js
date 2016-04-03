@@ -1,5 +1,8 @@
 var path = require('path')
 var root = path.resolve(__dirname, '../')
+var autoprefixer = require('autoprefixer')
+
+var browser_support = ['last 2 versions']
 
 module.exports = {
   entry: {
@@ -25,6 +28,10 @@ module.exports = {
     ],
     loaders: [
       {
+        test: /\.scss$/,
+        loaders: ['style', 'css', 'postcss', 'sass']
+      },
+      {
         test: /\.coffee$/,
         loader: 'coffee',
         exclude: /node_modules/
@@ -48,5 +55,8 @@ module.exports = {
   plugins: [],
   eslint: {
     formatter: require('eslint-friendly-formatter')
+  },
+  postcss: function () {
+      return [autoprefixer({browsers: browser_support})];
   }
 }

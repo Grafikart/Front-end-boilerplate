@@ -8,10 +8,6 @@ Object.keys(config.entry).forEach(function (name) {
 })
 
 config.devtool = '#eval-source-map'
-config.module.loaders.push({
-  test: /\.scss$/,
-  loaders: ['style', 'css', 'sass']
-})
 
 config.plugins = [
   new webpack.HotModuleReplacementPlugin(),
