@@ -1,18 +1,11 @@
 var path = require('path')
 var root = path.resolve(__dirname, '../')
 var autoprefixer = require('autoprefixer')
-
-var browser_support = ['last 2 versions']
+var conf = require('./config')
 
 module.exports = {
-  entry: {
-    app: ['./css/app.scss', './js/app.js']
-  },
-  output: {
-    path: path.resolve(__dirname, '../dist'),
-    filename: '[name].js',
-    publicPath: '/dist/'
-  },
+  entry: conf.entry,
+  output: conf.output,
   resolve: {
     extensions: ['', '.js', '.vue', '.coffee', '.css', '.scss'],
     fallback: [path.join(__dirname, '../node_modules')]
@@ -22,7 +15,6 @@ module.exports = {
       {
         test: /\.js$/,
         loader: 'eslint',
-        include: root,
         exclude: /(node_modules|libs)/
       }
     ],
@@ -30,6 +22,10 @@ module.exports = {
       {
         test: /\.scss$/,
         loaders: ['style', 'css', 'postcss', 'sass']
+      },
+      {
+        test: /\.css$/,
+        loaders: ['style', 'css', 'postcss']
       },
       {
         test: /\.coffee$/,
@@ -40,7 +36,7 @@ module.exports = {
         test: /\.js$/,
         loader: 'babel',
         include: root,
-        exclude: /node_modules/
+        exclude: /node_modules|libs/
       },
       {
         test: /\.(png|jpg|gif|svg|woff2?|eot|ttf)(\?.*)?$/,
@@ -54,9 +50,10 @@ module.exports = {
   },
   plugins: [],
   eslint: {
+    configFile: path.resolve(root, './.eslintrc'),
     formatter: require('eslint-friendly-formatter')
   },
   postcss: function () {
-      return [autoprefixer({browsers: browser_support})];
+      return [autoprefixer({browsers: conf.support})];
   }
 }

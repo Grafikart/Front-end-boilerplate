@@ -1,42 +1,58 @@
 var webpack = require('webpack')
-var config = require('./webpack.dev.conf.js')
+var webpackConfig = require('./webpack.dev.conf.js')
+var config = require('./config')
+var chokidar = require('chokidar')
 var WebpackDevServer = require('webpack-dev-server')
-var port = 3003
-var compiler = webpack(config)
+var compiler = webpack(webpackConfig)
+var hotMiddleware = require("webpack-hot-middleware")(compiler);
 
-var hotMiddleware = require('webpack-hot-middleware')(compiler)
-// force page reload when html-webpack-plugin template changes
-compiler.plugin('compilation', function (compilation) {
-  compilation.plugin('html-webpack-plugin-after-emit', function (data, cb) {
-    hotMiddleware.publish({ action: 'reload' })
-    cb()
-  })
+// Dès qu'un fichier est modifié on force le reload complet de la page
+chokidar.watch(config.forceReload).on('change', function (path) {
+    console.log('* ' + path + ' changed')
+    hotMiddleware.publish({action: 'reload'})
 })
 
-var server = new WebpackDevServer(compiler, {
-  hot: true,
-  contentBase: "./",
-  historyApiFallback: false,
-  /*
-  proxy: {
-    "*": {
-      target: "http://monsite.fr/...",
-      changeOrigin: true
+// Les options de base de notre dev-server
+var serverOptions = {
+    contentBase: config.base,
+    hot: true,
+    historyApiFallback: false,
+    quiet: false,
+    noInfo: false,
+    publicPath: webpackConfig.output.publicPath,
+    watchOptions: {
+        aggregateTimeout: 300,
+        poll: 50
+    },
+    stats: {colors: true}
+}
+
+// Suivant la configuration on passe par le proxy
+if (config.proxy) {
+    serverOptions.proxy = {
+        "*": {
+            target: config.proxy,
+            changeOrigin: true,
+            bypass: function (req, res, proxyOptions) {
+                // On laisse passé les requêtes hot-reload
+                if (req.url.includes('__webpack_hmr')) {
+                    return req.url
+                }
+            }
+        }
     }
-  },
-  */
-  quiet: false,
-  noInfo: false,
-  publicPath: config.output.publicPath,
-  stats: { colors: true }
-})
+}
 
-server.use(hotMiddleware)
+var server = new WebpackDevServer(compiler, serverOptions)
 
-server.listen(port, function (err) {
-  if (err) {
-    console.log(err)
-    return
-  }
-  console.log('Listening at http://localhost:' + port + '\n')
+// On utilise le hot-middleware
+server.use(hotMiddleware);
+
+// On écoute sur le port demandé depuis la configuration
+server.listen(config.port, function (err) {
+    if (err) {
+        console.log(err)
+        return
+    }
+    console.log('====> http://localhost:' + config.port + '\n')
 })

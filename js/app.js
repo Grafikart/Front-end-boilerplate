@@ -1,13 +1,8 @@
-// import outdatedBrowser from './libs/outdatedbrowser'
-import Sharer from './modules/social.coffee'
+import outdatedBrowser from './libs/outdated/outdatedbrowser'
 
-Sharer('MonPseudo')
-
-/*
 outdatedBrowser({
   bgColor: '#f25648',
   color: '#ffffff',
-  lowerThan: 'boxShadow',
-  languagePath: ''
+  lowerThan: 'transform',
+  languagePath: 'your_path/outdatedbrowser/lang/en.html'
 })
-*/

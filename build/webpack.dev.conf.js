@@ -1,17 +1,20 @@
 var webpack = require('webpack')
-var merge = require('webpack-merge')
-var config = require('./webpack.base.conf')
+var webpackConfig = require('./webpack.base.conf')
+var config = require('./config')
 
 // add hot-reload related code to entry chunks
-Object.keys(config.entry).forEach(function (name) {
-  config.entry[name] = ['./build/dev-client'].concat(config.entry[name])
+Object.keys(webpackConfig.entry).forEach(function (name) {
+  webpackConfig.entry[name] = ['./build/dev-client'].concat(webpackConfig.entry[name])
 })
-
-config.devtool = '#eval-source-map'
-
-config.plugins = [
+webpackConfig.devtool = '#eval-source-map'
+webpackConfig.devServer = { headers: { "Access-Control-Allow-Origin": "*" }}
+if(config.proxy){
+  webpackConfig.output.publicPath = "http://localhost:" + config.port + webpackConfig.output.publicPath
+}
+webpackConfig.plugins = [
+  new webpack.optimize.OccurrenceOrderPlugin(),
   new webpack.HotModuleReplacementPlugin(),
   new webpack.NoErrorsPlugin(),
-].concat(config.plugins)
+].concat(webpackConfig.plugins)
 
-module.exports = config
+module.exports = webpackConfig
