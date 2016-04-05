@@ -7,10 +7,11 @@ var compiler = webpack(webpackConfig)
 var hotMiddleware = require("webpack-hot-middleware")(compiler);
 
 // Dès qu'un fichier est modifié on force le reload complet de la page
-chokidar.watch(config.forceReload).on('change', function (path) {
+var refresh = function (path) {
     console.log('* ' + path + ' changed')
     hotMiddleware.publish({action: 'reload'})
-})
+}
+chokidar.watch(config.forceReload).on('change', refresh).on('add', refresh)
 
 // Les options de base de notre dev-server
 var serverOptions = {
