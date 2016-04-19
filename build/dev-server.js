@@ -7,7 +7,7 @@ var compiler = webpack(webpackConfig)
 var hotMiddleware = require("webpack-hot-middleware")(compiler);
 
 // Dès qu'un fichier est modifié on force le reload complet de la page
-var refresh = function (path) {
+var refresh = function (event, path) {
     console.log('* ' + path + ' changed')
     hotMiddleware.publish({action: 'reload'})
 }
