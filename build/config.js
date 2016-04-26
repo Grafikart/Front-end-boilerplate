@@ -1,6 +1,6 @@
 var path = require('path');
 
-// La seule configuration a modifié.
+// La seule configuration à modifier.
 module.exports = {
     entry: {
         app: ['./css/app.scss', './js/app.js']
@@ -13,6 +13,6 @@ module.exports = {
     port: 3002,
     // proxy: 'http://localhost:8000', // Pour PHP / Ruby ou autre
     base: './',
-    support: ['last 2 versions'], // Pour autoprefixer
+    support: ['last 2 versions'], // Pour autopréfixer
     forceReload: ['./resources/**/*.php', './app/**/*.php']
 }
