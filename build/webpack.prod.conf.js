@@ -14,10 +14,11 @@ config.plugins = config.plugins.concat([
   new webpack.optimize.OccurenceOrderPlugin()
 ])
 
-// On modifier le loader CSS
+// On modifie le loader CSS
+// Fournir la liste des index des loaders
 var css = [0, 1]
 for(k in css){
-  var cssLoaders = config.module.loaders[k].loaders
+  var cssLoaders = config.module.loaders[css[k]].loaders
   config.module.loaders[k].loaders = null
   config.module.loaders[k].loader = extractSASS.extract(cssLoaders.slice(1, 10))
 }
