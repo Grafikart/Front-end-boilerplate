@@ -14,7 +14,7 @@ if(config.proxy){
 webpackConfig.plugins = [
   new webpack.optimize.OccurrenceOrderPlugin(),
   new webpack.HotModuleReplacementPlugin(),
-  new webpack.NoErrorsPlugin(),
+  new webpack.NoErrorsPlugin()
 ].concat(webpackConfig.plugins)
 
 module.exports = webpackConfig

@@ -3,12 +3,13 @@ var webpack = require('webpack')
 var ExtractTextPlugin = require('extract-text-webpack-plugin')
 var extractSASS = new ExtractTextPlugin('app.css')
 
+config.output.publicPath = ''
 config.plugins = config.plugins.concat([
   extractSASS,
   new webpack.optimize.UglifyJsPlugin({
     comments: false,
     compress: {
-      warnings: false,
+      warnings: false
     }
   }),
   new webpack.optimize.OccurenceOrderPlugin()
