@@ -39,6 +39,12 @@ module.exports = {
         exclude: /node_modules|libs/
       },
       {
+        test: /\.ts$/,
+        loader: 'ts',
+        include: root,
+        exclude: /node_modules|libs/
+      },
+      {
         test: /\.(png|jpg|gif|svg|woff2?|eot|ttf)(\?.*)?$/,
         loader: 'url',
         query: {
