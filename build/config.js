@@ -17,5 +17,9 @@ module.exports = {
     // proxy: 'http://localhost:8000', // Pour PHP / Ruby ou autre
     base: './src',
     support: ['last 2 versions'], // Pour autoprefixer
-    forceReload: ['./src/index.html']
+    forceReload: ['./src/index.html'],
+    extractsHtml: [
+        { filename: 'cc.html', template: './src/html/index.pug' },
+        { filename: 'test.html', template: './src/html/test.pug' }
+    ]
 }
