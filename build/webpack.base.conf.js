@@ -28,19 +28,8 @@ module.exports = {
         loaders: ['style', 'css', 'postcss']
       },
       {
-        test: /\.coffee$/,
-        loader: 'coffee',
-        exclude: /node_modules/
-      },
-      {
         test: /\.js$/,
         loader: 'babel',
-        include: root,
-        exclude: /node_modules|libs/
-      },
-      {
-        test: /\.ts$/,
-        loader: 'ts',
         include: root,
         exclude: /node_modules|libs/
       },
