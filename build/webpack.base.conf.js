@@ -28,6 +28,11 @@ module.exports = {
         loaders: ['style', 'css', 'postcss']
       },
       {
+        test: /\.pug$/,
+        include: root,
+        loader: 'pug-static'
+      },
+      {
         test: /\.coffee$/,
         loader: 'coffee',
         exclude: /node_modules/
@@ -61,5 +66,9 @@ module.exports = {
   },
   postcss: function () {
       return [autoprefixer({browsers: conf.support})];
+  },
+  pug: {
+    pretty: true,
+    locals: { foo: 'bar' }
   }
 }

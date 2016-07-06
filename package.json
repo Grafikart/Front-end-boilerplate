@@ -28,9 +28,11 @@
     "eslint-plugin-standard": "^1.3.2",
     "extract-text-webpack-plugin": "^1.0.1",
     "file-loader": "^0.8.5",
+    "html-webpack-plugin": "^2.22.0",
     "node-sass": "^3.4.2",
     "ora": "^0.2.1",
     "postcss-loader": "^0.9.1",
+    "pug-static-loader": "0.0.1",
     "sass-loader": "^3.2.0",
     "scroll-to": "0.0.2",
     "scroll-to-element": "^2.0.0",
@@ -44,6 +46,5 @@
     "webpack-hot-middleware": "^2.10.0",
     "webpack-merge": "^0.14.0"
   },
-  "dependencies": {
-  }
+  "dependencies": {}
 }
