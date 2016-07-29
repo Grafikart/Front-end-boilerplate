@@ -33,11 +33,6 @@ module.exports = {
         loader: 'pug-static'
       },
       {
-        test: /\.coffee$/,
-        loader: 'coffee',
-        exclude: /node_modules/
-      },
-      {
         test: /\.js$/,
         loader: 'babel',
         include: root,
