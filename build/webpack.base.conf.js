@@ -7,7 +7,7 @@ module.exports = {
   entry: conf.entry,
   output: conf.output,
   resolve: {
-    extensions: ['', '.js', '.vue', '.coffee', '.css', '.scss', '.ts'],
+    extensions: ['', '.js', '.css', '.jade', '.scss', '.ts'],
     fallback: [path.join(__dirname, '../node_modules')]
   },
   module: {
