@@ -22,8 +22,9 @@ var serverOptions = {
     noInfo: false,
     publicPath: webpackConfig.output.publicPath,
     watchOptions: {
-        aggregateTimeout: 300,
-        poll: 50
+        ignored: /node_modules/
+        // aggregateTimeout: 300,
+        // poll: 50
     },
     stats: {colors: true}
 }
