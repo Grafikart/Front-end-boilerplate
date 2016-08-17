@@ -1,5 +1,7 @@
 # C'est quoi ce dépôt ?
 
+![travis badge](https://travis-ci.org/Grafikart/Front-end-boilerplate.svg)
+
 Parce que j'en avais plein le cul de copier les fichiers de projets en projets et de configurer tout le bordel.
 Le but du dépôt n'est pas d'avoir une config bullet proof capable de gérer tous les cas mais juste de répondre à mes besoins et démarrer plus rapidement mes projets.
 
@@ -52,7 +54,7 @@ end
 
 On remplace le helper asset_path
 
-```
+```ruby
 module AssetHelper
 
   def asset_path(url)
