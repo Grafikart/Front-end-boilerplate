@@ -1,14 +1,21 @@
 /* Variables
    ========================================================================== */
+$color: #eee;
+   
+/* MISC
+   ========================================================================== */
+@import "tools/reset";
+@import "tools/helpers";
+@import "tools/responsive";
 
 /* Generic
    ========================================================================== */
-* { box-sizing: border-box; }
+body {
+    background-color: #fff;
+}
 
 /* Tools
    ========================================================================== */
-@import "tools/helpers";
-@import "tools/responsive";
 @import "tools/wordpress";
 @import "tools/layout";
 
