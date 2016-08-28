@@ -5,6 +5,7 @@ const config = require('./webpack.dev')
 const compiler = webpack(config)
 const hotMiddleware = require('webpack-hot-middleware')(compiler)
 const chokidar = require('chokidar')
+const DashboardPlugin = require('webpack-dashboard/plugin')
 
 // Force le rafraichissement du navigateur
 let refresh = function (path) {
@@ -12,11 +13,13 @@ let refresh = function (path) {
     hotMiddleware.publish({action: 'reload'})
 }
 
+compiler.apply(new DashboardPlugin());
+
 let server = new WebpackDevServer(compiler, {
   hot: true,
   historyApiFallback: false,
   quiet: false,
-  noInfo: true,
+  noInfo: false,
   publicPath: config.output.publicPath,
   watchOptions: {
     aggregateTimeout: 300,

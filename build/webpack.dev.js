@@ -2,6 +2,7 @@
 const path = require('path')
 const webpack = require('webpack')
 const config = require('./webpack.base')
+const DashboardPlugin = require('webpack-dashboard/plugin')
 
 config.devtool = 'cheap-module-eval-source-map'
 config.output.publicPath = 'http://localhost:3003/assets/'
@@ -14,7 +15,8 @@ config.plugins.push(
     'process.env.NODE_ENV': JSON.stringify('development')
   }),
   new webpack.HotModuleReplacementPlugin(),
-  new webpack.NoErrorsPlugin()
+  new webpack.NoErrorsPlugin(),
+  new DashboardPlugin()
 )
 
 config.module.loaders.forEach(function (loader) {
