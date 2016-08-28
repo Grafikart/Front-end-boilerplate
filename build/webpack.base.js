@@ -52,11 +52,11 @@ module.exports = {
       {
         test: /\.scss$/,
         vue: 'scss',
-        loaders: ['css', 'sass']
+        loaders: ['css', 'postcss', 'sass']
       },
       {
         test: /\.css$/,
-        loaders: ['css']
+        loaders: ['css', 'postcss']
       }, {
         test: /\.(png|jpe?g|gif|svg|woff2?|eot|ttf|otf|wav)(\?.*)?$/,
         loader: 'url',
