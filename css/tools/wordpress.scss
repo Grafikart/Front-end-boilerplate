@@ -1,46 +1,60 @@
-body.wp-admin-bar{
+body.wp-admin-bar {
   padding-top: 46px;
 }
 
-.gallery{
+.gallery {
   margin: 15px 0;
   overflow: hidden;
-  dl{
+  dl {
     margin: 0;
     padding: 0;
     float: left;
   }
-  img{
+  img {
     width: 100%;
   }
 }
-.gallery-columns-5 dl{ width: 20%; }
-.gallery-columns-4 dl{ width: 25%; }
-.gallery-columns-3 dl{ width: 33.33%; }
-.gallery-columns-2 dl{ width: 50%; }
-.alignleft{
-  float:left;
+
+.gallery-columns-5 dl {
+  width: 20%;
+}
+
+.gallery-columns-4 dl {
+  width: 25%;
+}
+
+.gallery-columns-3 dl {
+  width: 33.33%;
+}
+
+.gallery-columns-2 dl {
+  width: 50%;
+}
+
+.alignleft {
+  float: left;
   margin-right: 10px;
 }
-.alignright{
+
+.alignright {
   float: right;
   margin-left: 10px;
 }
 
-.aligncenter{
+.aligncenter {
   display: block;
   margin: 0 auto;
   margin-bottom: 1em;
 }
 
-.wp-pagenavi{
+.wp-pagenavi {
   margin: 30px 0;
   position: relative;
   height: 23px;
   text-align: center;
   font-size: 16px;
 
-  span.current, a.page{
+  span.current, a.page {
     display: inline-block;
     height: 23px;
     line-height: 23px;
@@ -51,34 +65,34 @@ body.wp-admin-bar{
     transition-duration: 0.3s;
   }
 
-  span.current{
+  span.current {
     color: #888;
     background-color: #e1e1e1;
   }
 
-  a.page:hover{
+  a.page:hover {
     color: #FFF;
     background-color: #7c7c7c;
     border-color: #7c7c7c;
   }
 }
 
-.previouspostslink{
+.previouspostslink {
   position: absolute;
   text-decoration: none;
   top: 0;
   left: 0;
   line-height: 23px;
   color: #808080;
-  &:hover{
+  &:hover {
     text-decoration: underline;
   }
-  &:before{
-    content:'< '
+  &:before {
+    content: '< '
   }
 }
 
-.nextpostslink{
+.nextpostslink {
   position: absolute;
   text-decoration: none;
   top: 0;
@@ -86,16 +100,16 @@ body.wp-admin-bar{
   line-height: 23px;
   color: #808080;
   text-align: right;
-  &:hover{
+  &:hover {
     text-decoration: underline;
   }
-  &:after{
-    content:' >'
+  &:after {
+    content: ' >'
   }
 }
 
 @media only screen and (min-width: 780px) {
-  body.wp-admin-bar{
+  body.wp-admin-bar {
     padding-top: 32px;
   }
 }

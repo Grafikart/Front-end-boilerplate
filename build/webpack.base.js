@@ -1,7 +1,7 @@
 'use strict'
 const path = require('path')
 const webpack = require('webpack')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
+const config = require('./config')
 
 const postcss = [
   require('autoprefixer')({
@@ -10,13 +10,11 @@ const postcss = [
 ]
 
 module.exports = {
-  entry: {
-    app: [path.join(__dirname, '../css/app.scss'), path.join(__dirname, '../js/app.js')]
-  },
+  entry: config.entry,
   output: {
-    path: './public/assets/',
+    path: config.assets_path,
     filename: '[name].js',
-    publicPath: '/assets/'
+    publicPath: config.assets_url
   },
   refresh: ['index.html'], // Permet de forcer le rafraichissement du navigateur lors de la modification de ces fichiers
   resolve: {

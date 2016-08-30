@@ -1,14 +1,14 @@
 'use strict'
-const path = require('path')
 const webpack = require('webpack')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const ProgressBarPlugin = require('progress-bar-webpack-plugin')
 const AssetsPlugin = require('assets-webpack-plugin')
-const config = require('./webpack.base')
+const webpack_base = require('./webpack.base')
+const config = require('./config')
 
-config.devtool = false
-config.output.filename = '[name].[chunkhash:8].js'
-config.plugins.push(
+webpack_base.devtool = false
+webpack_base.output.filename = '[name].[chunkhash:8].js'
+webpack_base.plugins.push(
   new ProgressBarPlugin(),
   new ExtractTextPlugin('[name].[contenthash:8].css'),
   new webpack.DefinePlugin({
@@ -23,13 +23,13 @@ config.plugins.push(
     },
     comments: false
   }),
-  new AssetsPlugin({filename: './public/assets/assets.json'})
+  new AssetsPlugin({filename: config.assets_path + 'assets.json'})
 )
 
 // On extrait le CSS
-config.module.loaders.forEach(function (loader) {
+webpack_base.module.loaders.forEach(function (loader) {
   if (loader.vue) {
-    config.vue.loaders[loader.vue] = ExtractTextPlugin.extract(loader.loaders)
+    webpack_base.vue.loaders[loader.vue] = ExtractTextPlugin.extract(loader.loaders)
   }
   if (loader.loaders && loader.loaders.includes('css')) {
     loader.loader = ExtractTextPlugin.extract(loader.loaders)
@@ -37,4 +37,4 @@ config.module.loaders.forEach(function (loader) {
   }
 })
 
-module.exports = config
+module.exports = webpack_base

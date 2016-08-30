@@ -1,8 +1,9 @@
 'use strict'
 const WebpackDevServer = require('webpack-dev-server')
 const webpack = require('webpack')
-const config = require('./webpack.dev')
-const compiler = webpack(config)
+const webpack_dev = require('./webpack.dev')
+const config = require('./config')
+const compiler = webpack(webpack_dev)
 const hotMiddleware = require('webpack-hot-middleware')(compiler)
 const chokidar = require('chokidar')
 const DashboardPlugin = require('webpack-dashboard/plugin')
@@ -20,7 +21,7 @@ let server = new WebpackDevServer(compiler, {
   historyApiFallback: false,
   quiet: false,
   noInfo: false,
-  publicPath: config.output.publicPath,
+  publicPath: webpack_dev.output.publicPath,
   watchOptions: {
     aggregateTimeout: 300,
     poll: 50
@@ -33,6 +34,6 @@ server.listen(3003, function (err) {
     console.log(err)
     return
   }
-  chokidar.watch(config.refresh).on('change', refresh)
+  chokidar.watch(webpack_dev.refresh).on('change', refresh)
   console.log('==> Listening on http://localhost:3003')
 })

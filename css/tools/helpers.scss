@@ -1,8 +1,9 @@
 /* Clearfix
    ========================================================================== */
-.clearfix{
+.clearfix {
   clear: both;
 }
+
 @mixin clearfix {
   &:after {
     content: "";
@@ -37,13 +38,13 @@
   $src: null;
 
   $extmods: (
-          eot: "?",
-          svg: "#" + str-replace($name, " ", "_")
+    eot: "?",
+    svg: "#" + str-replace($name, " ", "_")
   );
 
   $formats: (
-          otf: "opentype",
-          ttf: "truetype"
+    otf: "opentype",
+    ttf: "truetype"
   );
 
   @each $ext in $exts {

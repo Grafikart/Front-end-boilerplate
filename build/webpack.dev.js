@@ -1,16 +1,17 @@
 'use strict'
 const path = require('path')
 const webpack = require('webpack')
-const config = require('./webpack.base')
+const webpack_base = require('./webpack.base')
 const DashboardPlugin = require('webpack-dashboard/plugin')
+const config = require('./config')
 
-config.devtool = 'cheap-module-eval-source-map'
-config.output.publicPath = 'http://localhost:3003/assets/'
-config.output.path = '/tmp/'
-for (var name in config.entry) {
-  config.entry[name] = [path.resolve(__dirname, './server-client'), ...config.entry[name]]
+webpack_base.devtool = 'cheap-module-eval-source-map'
+webpack_base.output.publicPath = 'http://localhost:' + config.port + config.assets_url
+webpack_base.output.path = '/tmp/'
+for (var name in webpack_base.entry) {
+  webpack_base.entry[name] = [path.resolve(__dirname, './server-client'), ...webpack_base.entry[name]]
 }
-config.plugins.push(
+webpack_base.plugins.push(
   new webpack.DefinePlugin({
     'process.env.NODE_ENV': JSON.stringify('development')
   }),
@@ -19,13 +20,13 @@ config.plugins.push(
   new DashboardPlugin()
 )
 
-config.module.loaders.forEach(function (loader) {
+webpack_base.module.loaders.forEach(function (loader) {
   if (loader.vue) {
-    config.vue.loaders[loader.vue] = 'vue-style-loader!' + loader.loaders.join('-loader!') + '-loader'
+    webpack_base.vue.loaders[loader.vue] = 'vue-style-loader!' + loader.loaders.join('-loader!') + '-loader'
   }
   if (loader.loaders && loader.loaders.includes('css')) {
     loader.loaders = ['style', ...loader.loaders]
   }
 })
 
-module.exports = config
+module.exports = webpack_base

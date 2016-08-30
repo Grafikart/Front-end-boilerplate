@@ -4,7 +4,7 @@
   "description": "A modern Vue.js project which uses Vue 2, Vuex, Vue-router and Webpack 2.",
   "main": "client/index.js",
   "scripts": {
-    "build": "rm -rf public/assets && webpack --config build/webpack.prod.js",
+    "build": "rm -rf dist && webpack --config build/webpack.prod.js",
     "dev": "webpack-dashboard -- node build/server.js",
     "gh": "npm run build && gh-pages -d dist"
   },
