@@ -9,7 +9,7 @@ const postcss = [
   })
 ]
 
-module.exports = {
+let webpack_base = {
   entry: config.entry,
   output: {
     path: config.assets_path,
@@ -83,3 +83,16 @@ module.exports = {
     headers: { "Access-Control-Allow-Origin": "*" }
   }
 }
+
+if (config.html) {
+  const HtmlWebpackPlugin = require('html-webpack-plugin')
+  webpack_base.plugins.push(
+    new HtmlWebpackPlugin({
+      filename: 'index.html',
+      template: 'index.html',
+      inject: true
+    })
+  )
+}
+
+module.exports = webpack_base

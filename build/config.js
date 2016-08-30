@@ -5,6 +5,7 @@ module.exports = {
     app: [path.join(__dirname, '../css/app.scss'), path.join(__dirname, '../js/app.js')]
   },
   port: 3003,
-  assets_url: '/assets/',
-  assets_path: './dist/assets/'
+  html: true,
+  assets_url: '/',  // Urls dans le fichier final
+  assets_path: './dist/' // ou build ?
 }
