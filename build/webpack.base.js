@@ -16,7 +16,6 @@ let webpack_base = {
     filename: '[name].js',
     publicPath: config.assets_url
   },
-  refresh: ['index.html'], // Permet de forcer le rafraichissement du navigateur lors de la modification de ces fichiers
   resolve: {
     extensions: ['', '.js', '.vue', '.css', '.json'],
     alias: {

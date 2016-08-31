@@ -1,11 +1,10 @@
-const path = require('path')
-
 module.exports = {
   entry: {
-    app: [path.join(__dirname, '../css/app.scss'), path.join(__dirname, '../js/app.js')]
+    app: ['./css/app.scss', './js/app.js']
   },
   port: 3003,
   html: true,
   assets_url: '/',  // Urls dans le fichier final
-  assets_path: './dist/' // ou build ?
+  assets_path: './dist/', // ou build ?
+  refresh: ['index.html'] // Permet de forcer le rafraichissement du navigateur lors de la modification de ces fichiers
 }

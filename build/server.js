@@ -34,6 +34,6 @@ server.listen(3003, function (err) {
     console.log(err)
     return
   }
-  chokidar.watch(webpack_dev.refresh).on('change', refresh)
+  chokidar.watch(config.refresh).on('change', refresh)
   console.log('==> Listening on http://localhost:3003')
 })
