@@ -4,19 +4,19 @@ $color: rgba(#000, .54);
 
 /* MISC
    ========================================================================== */
-@import "tools/reset";
+// @import "tools/reset";
 @import "tools/helpers";
 @import "tools/responsive";
 
 /* Generic
    ========================================================================== */
 body {
-  color: $color;
+  color: inherit;
 }
 
 /* Tools
    ========================================================================== */
-@import "tools/wordpress";
+// @import "tools/wordpress";
 @import "tools/layout";
 
 /* Modules
