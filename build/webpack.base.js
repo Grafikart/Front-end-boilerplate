@@ -6,7 +6,8 @@ const config = require('./config')
 const postcss = [
   require('autoprefixer')({
     browsers: ['last 2 versions', 'ie > 8']
-  })
+  }),
+  require("css-mqpacker")()
 ]
 
 let webpack_base = {
