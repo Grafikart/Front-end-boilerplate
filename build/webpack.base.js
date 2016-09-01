@@ -20,7 +20,8 @@ let webpack_base = {
     extensions: ['', '.js', '.vue', '.css', '.json'],
     alias: {
       root: path.join(__dirname, '../js'),
-      components: path.join(__dirname, '../js/components')
+      components: path.join(__dirname, '../js/components'),
+      vue: 'vue/dist/vue.js'
     }
   },
   module: {
