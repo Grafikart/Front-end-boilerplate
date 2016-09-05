@@ -6,7 +6,8 @@ const config = require('./config')
 const postcss = [
   require('autoprefixer')({
     browsers: ['last 2 versions', 'ie > 8']
-  })
+  }),
+  require("css-mqpacker")()
 ]
 
 let webpack_base = {
@@ -20,7 +21,8 @@ let webpack_base = {
     extensions: ['', '.js', '.vue', '.css', '.json'],
     alias: {
       root: path.join(__dirname, '../js'),
-      components: path.join(__dirname, '../js/components')
+      components: path.join(__dirname, '../js/components'),
+      vue: 'vue/dist/vue.js'
     }
   },
   module: {
