@@ -1,8 +1,9 @@
-import outdatedBrowser from './libs/outdated/outdatedbrowser'
+import Vue from 'vue'
+import Lightbox from './components/lightbox/Lightbox.vue'
 
-outdatedBrowser({
-  bgColor: '#f25648',
-  color: '#ffffff',
-  lowerThan: 'transform',
-  languagePath: 'your_path/outdatedbrowser/lang/en.html'
+new Vue({
+  el: '#page',
+  components: {
+    Lightbox
+  }
 })

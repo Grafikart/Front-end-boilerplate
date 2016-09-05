@@ -1,0 +1,155 @@
+$duration: 0.5s;
+$decalx: 100px;
+
+.lightbox {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 500;
+  width: 100%;
+  height: 100%;
+  background: #fff;
+  background: rgba(#fff, .9);
+}
+
+.lightbox__btn {
+  position: absolute;
+  top: 50%;
+  width: 50px;
+  height: 90px;
+  margin-top: -45px;
+  cursor: pointer;
+  background: url(./next.svg);
+  background-size: 50px 90px;
+  transition: transform 0.3s;
+}
+
+.lightbox__btn:hover{
+  transform: scale(1.2);
+}
+
+.lightbox__next {
+  right: 20px;
+  background: url(./next.svg);
+}
+
+.lightbox__prev {
+  left: 20px;
+  background-image: url(./prev.svg);
+}
+
+.lightbox__image {
+  position: absolute;
+}
+
+.lightbox__loading {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 40px;
+  height: 40px;
+  padding: 10px;
+  margin-top: -20px;
+  margin-left: -20px;
+  background-color: #444;
+  background-color: rgba(#000, .5);
+  box-shadow: 0 0 40px rgba( #000, .75 );
+  border-radius: 50px;
+
+  div {
+    width: 20px;
+    height: 20px;
+    background-color: #fff;
+    border-radius: 20px;
+    animation: lightbox-loading .5s ease infinite;
+  }
+}
+
+.lightbox__close{
+  cursor: pointer;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 50px;
+  height: 50px;
+  background: url(./cross.svg) transparent no-repeat;
+  background-size: 50px 50px;
+  transition: transform 0.3s;
+
+  &:hover{
+    background-color: transparent;
+    transform: scale(1.2);
+  }
+}
+
+/* Transitions
+   ========================================================================== */
+.lightbox-next-enter-active, .lightbox-next-leave-active, .lightbox-prev-enter-active, .lightbox-prev-leave-active{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+// next
+.lightbox-next-enter-active, .lightbox-next-leave-active {
+  transition: all $duration ease;
+}
+
+.lightbox-next-enter-active {
+  transition-delay: $duration - .2;
+}
+
+.lightbox-next-enter {
+  opacity: 0;
+  transform: translateX($decalx);
+}
+
+.lightbox-next-leave-active {
+  opacity: 0;
+  transform: translateX($decalx * -1);
+}
+
+// previous
+.lightbox-prev-enter-active, .lightbox-prev-leave-active {
+  transition: all $duration ease;
+}
+
+.lightbox-prev-enter-active {
+  transition-delay: $duration - .2;
+}
+
+.lightbox-prev-enter {
+  opacity: 0;
+  transform: translateX($decalx * -1);
+}
+
+.lightbox-prev-leave-active {
+  opacity: 0;
+  transform: translateX($decalx);
+}
+
+// Scale
+.lightbox-fade-enter-active, .lightbox-fade-leave-active {
+  transition: all $duration ease;
+}
+
+.lightbox-fade-enter, .lightbox-fade-leave-active {
+  opacity: 0;
+}
+
+// loading
+@keyframes lightbox-loading {
+  from {
+    opacity: .5;
+    transform: scale( .75 );
+  }
+  50% {
+    opacity: 1;
+    transform: scale( 1 );
+  }
+  to {
+    opacity: .5;
+    transform: scale( .75 );
+  }
+}
