@@ -19,10 +19,6 @@ let server = new WebpackDevServer(compiler, {
   quiet: false,
   noInfo: false,
   publicPath: webpack_dev.output.publicPath,
-  watchOptions: {
-    aggregateTimeout: 300,
-    poll: 50
-  },
   stats: {
     colors: true,
     chunks: false
