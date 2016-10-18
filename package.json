@@ -5,7 +5,7 @@
   "main": "",
   "scripts": {
     "updates": "npm-check-updates -u",
-    "build": "rm -rf dist && webpack --config build/webpack.prod.js",
+    "build": "rimraf dist && webpack --config build/webpack.prod.js",
     "dev": "node build/server.js",
     "gh": "npm run build && gh-pages -d dist"
   },
@@ -40,6 +40,7 @@
     "node-sass": "^3.4.2",
     "postcss-loader": "^0.13.0",
     "progress-bar-webpack-plugin": "^1.9.0",
+    "rimraf": "^2.5.4",
     "sass-loader": "^4.0.2",
     "shelljs": "^0.7.0",
     "style-loader": "^0.13.1",
