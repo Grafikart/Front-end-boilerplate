@@ -81,5 +81,4 @@ end
 
 ## A faire
 
-- Mettre en place la fusion des media queries via https://github.com/hail2u/node-css-mqpacker mais sur le fichier final
 - Trouver la grande question sur la vie, l'univers et le reste
