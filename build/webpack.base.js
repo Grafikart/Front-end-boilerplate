@@ -37,34 +37,25 @@ let webpack_base = {
       {
         test: /\.js$/,
         loader: 'eslint-loader',
-        exclude: [/node_modules/,/libs/],
+        exclude: [/node_modules/, /libs/],
         enforce: 'pre'
-      },
-      {
-        test: /\.vue$/,
-        loader: ['vue-loader']
       },
       {
         test: /\.js$/,
         exclude: [/node_modules/, /libs/],
-        loader: [{
-          loader: 'babel-loader',
-          options: {
-            babelrc: false,
-            presets: [
-              'es2015-webpack',
-              'stage-2'
-            ],
-            plugins: ["transform-runtime"]
-          }
-        }]
+        loader: 'babel-loader'
+      },
+      {
+        test: /\.vue$/,
+        exclude: [/node_modules/],
+        loader: 'vue-loader'
       },
       {
         test: /\.scss$/,
         loader: [
           'style-loader',
-          'css-loader', 
-          'postcss-loader', 
+          'css-loader',
+          'postcss-loader',
           'sass-loader'
         ]
       },
@@ -73,14 +64,14 @@ let webpack_base = {
         loader: ['css-loader', 'postcss-loader']
       }, {
         test: /\.(png|jpe?g|gif|svg|woff2?|eot|ttf|otf|wav)(\?.*)?$/,
-        loader: [{
+        use: [{
           loader: 'url-loader',
           query: {
             limit: 10,
             name: '[name].[hash:7].[ext]'
           }
         }],
-        
+
       }
     ]
   },
@@ -90,7 +81,8 @@ let webpack_base = {
         postcss: postcss,
         vue: {
           loaders: {
-            scss: ['vue-style-loader', 'css-loader', 'sass-loader'],
+            scss: 'vue-style-loader!css-loader!sass-loader',
+            js: 'babel-loader'
           },
           postcss: postcss
         }
