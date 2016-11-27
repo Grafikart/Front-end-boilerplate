@@ -14,24 +14,36 @@ webpack_base.plugins.push(
   new webpack.DefinePlugin({
     'process.env.NODE_ENV': JSON.stringify('production')
   }),
+  /* 
+  TODO: Fix this
   new webpack.optimize.UglifyJsPlugin({
     compress: {
       warnings: false
     },
     comments: false
   }),
+  */
   new AssetsPlugin({filename: config.assets_path + 'assets.json'})
 )
 
 // On extrait le CSS
-webpack_base.module.loaders.forEach(function (loader) {
-  if (loader.vue) {
-    webpack_base.vue.loaders[loader.vue] = ExtractTextPlugin.extract(loader.loaders)
+let vuePlugin = webpack_base.plugins[0].options.options.vue
+let vuePluginSCSSLoader = vuePlugin.loaders.scss
+vuePluginSCSSLoader.shift()
+
+vuePlugin.loaders.scss = ExtractTextPlugin.extract({
+  loader: vuePluginSCSSLoader
+})
+
+webpack_base.module.rules.forEach(function (rule, k) {
+  
+  if (".scss".match(rule.test)) {
+    rule.loader.shift()
+    webpack_base.module.rules[k].loader = ExtractTextPlugin.extract({
+      loader: rule.loader
+    })
   }
-  if (loader.loaders && loader.loaders.includes('css')) {
-    loader.loader = ExtractTextPlugin.extract(loader.loaders)
-    delete loader['loaders']
-  }
+
 })
 
 module.exports = webpack_base

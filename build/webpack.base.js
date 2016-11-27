@@ -3,12 +3,13 @@ const path = require('path')
 const webpack = require('webpack')
 const config = require('./config')
 
-const postcss = [
-  require('autoprefixer')({
-    browsers: ['last 2 versions', 'ie > 8']
-  }),
-  require("css-mqpacker")()
-]
+const postcss = {
+  plugins: [
+    require('autoprefixer')({
+      browsers: config.browsers
+    })
+  ]
+}
 
 let webpack_base = {
   entry: config.entry,
@@ -18,7 +19,7 @@ let webpack_base = {
     publicPath: config.assets_url
   },
   resolve: {
-    extensions: ['', '.js', '.vue', '.css', '.json'],
+    extensions: ['.js', '.vue', '.css', '.json'],
     alias: {
       root: path.join(__dirname, '../js'),
       components: path.join(__dirname, '../js/components'),
@@ -26,60 +27,76 @@ let webpack_base = {
     }
   },
   module: {
-    preLoaders: [
+    rules: [
       {
         test: /\.vue$/,
-        loader: 'eslint',
-        exclude: [/node_modules/]
+        loader: 'eslint-loader',
+        exclude: [/node_modules/],
+        enforce: 'pre'
       },
       {
         test: /\.js$/,
-        loader: 'eslint',
-        exclude: [/node_modules/,/libs/]
-      }
-    ],
-    loaders: [
+        loader: 'eslint-loader',
+        exclude: [/node_modules/,/libs/],
+        enforce: 'pre'
+      },
       {
         test: /\.vue$/,
-        loaders: ['vue']
+        loader: ['vue-loader']
       },
       {
         test: /\.js$/,
-        loader: 'babel',
-        exclude: [/node_modules/, /libs/]
+        exclude: [/node_modules/, /libs/],
+        loader: [{
+          loader: 'babel-loader',
+          options: {
+            babelrc: false,
+            presets: [
+              'es2015-webpack',
+              'stage-2'
+            ],
+            plugins: ["transform-runtime"]
+          }
+        }]
       },
       {
         test: /\.scss$/,
-        vue: 'scss',
-        loaders: ['css', 'postcss', 'sass']
+        loader: [
+          'style-loader',
+          'css-loader', 
+          'postcss-loader', 
+          'sass-loader'
+        ]
       },
       {
         test: /\.css$/,
-        loaders: ['css', 'postcss']
+        loader: ['css-loader', 'postcss-loader']
       }, {
         test: /\.(png|jpe?g|gif|svg|woff2?|eot|ttf|otf|wav)(\?.*)?$/,
-        loader: 'url',
-        query: {
-          limit: 10,
-          name: '[name].[hash:7].[ext]'
-        }
+        loader: [{
+          loader: 'url-loader',
+          query: {
+            limit: 10,
+            name: '[name].[hash:7].[ext]'
+          }
+        }],
+        
       }
     ]
   },
-  babel: {
-    babelrc: false,
-    presets: [
-      'es2015',
-      'stage-2'
-    ],
-    plugins: ["transform-runtime"]
-  },
-  postcss,
-  vue: {
-    loaders: {},
-    postcss
-  },
-  plugins: [],
+  plugins: [
+    new webpack.LoaderOptionsPlugin({
+      options: {
+        postcss: postcss,
+        vue: {
+          loaders: {
+            scss: ['vue-style-loader', 'css-loader', 'sass-loader'],
+          },
+          postcss: postcss
+        }
+      }
+    })
+  ],
   devServer: {
     headers: { "Access-Control-Allow-Origin": "*" }
   }

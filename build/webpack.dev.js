@@ -18,13 +18,4 @@ webpack_base.plugins.push(
   new webpack.NoErrorsPlugin()
 )
 
-webpack_base.module.loaders.forEach(function (loader) {
-  if (loader.vue) {
-    webpack_base.vue.loaders[loader.vue] = 'vue-style-loader!' + loader.loaders.join('-loader!') + '-loader'
-  }
-  if (loader.loaders && loader.loaders.includes('css')) {
-    loader.loaders = ['style', ...loader.loaders]
-  }
-})
-
 module.exports = webpack_base
