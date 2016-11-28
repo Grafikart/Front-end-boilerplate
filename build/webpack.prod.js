@@ -1,6 +1,6 @@
 'use strict'
 const webpack = require('webpack')
-const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const ExtractCSSPlugin = require('./extractCSSPlugin')
 const ProgressBarPlugin = require('progress-bar-webpack-plugin')
 const AssetsPlugin = require('assets-webpack-plugin')
 const webpack_base = require('./webpack.base')
@@ -10,7 +10,7 @@ webpack_base.devtool = false
 webpack_base.output.filename = '[name].[chunkhash:8].js'
 webpack_base.plugins.push(
   new ProgressBarPlugin(),
-  new ExtractTextPlugin('[name].[contenthash:8].css'),
+  new ExtractCSSPlugin('[name].[contenthash:8].css'),
   new webpack.DefinePlugin({
     'process.env.NODE_ENV': JSON.stringify('production')
   }),
@@ -25,7 +25,7 @@ webpack_base.plugins.push(
 
 // VueJS extract
 let vuePlugin = webpack_base.plugins[0].options.options.vue 
-vuePlugin.loaders.scss = ExtractTextPlugin.extract({ 
+vuePlugin.loaders.scss = ExtractCSSPlugin.extract({ 
   loader: ['css-loader', 'postcss-loader', 'sass-loader']
 }) 
 
@@ -36,7 +36,7 @@ webpack_base.module.rules.forEach(function (rule, k) {
     ".css".match(rule.test)
   ) {
     rule.loader.shift()
-    webpack_base.module.rules[k].loader = ExtractTextPlugin.extract({
+    webpack_base.module.rules[k].loader = ExtractCSSPlugin.extract({
       loader: rule.loader
     })
   }
