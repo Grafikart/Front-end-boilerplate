@@ -5,11 +5,13 @@ body.wp-admin-bar {
 .gallery {
   margin: 15px 0;
   overflow: hidden;
+
   dl {
     margin: 0;
     padding: 0;
     float: left;
   }
+
   img {
     width: 100%;
   }
@@ -54,7 +56,8 @@ body.wp-admin-bar {
   text-align: center;
   font-size: 16px;
 
-  span.current, a.page {
+  span.current,
+  a.page {
     display: inline-block;
     height: 23px;
     line-height: 23px;
@@ -71,7 +74,7 @@ body.wp-admin-bar {
   }
 
   a.page:hover {
-    color: #FFF;
+    color: #fff;
     background-color: #7c7c7c;
     border-color: #7c7c7c;
   }
@@ -84,11 +87,13 @@ body.wp-admin-bar {
   left: 0;
   line-height: 23px;
   color: #808080;
+
   &:hover {
     text-decoration: underline;
   }
-  &:before {
-    content: '< '
+
+  &::before {
+    content: '< ';
   }
 }
 
@@ -100,11 +105,13 @@ body.wp-admin-bar {
   line-height: 23px;
   color: #808080;
   text-align: right;
+
   &:hover {
     text-decoration: underline;
   }
-  &:after {
-    content: ' >'
+
+  &::after {
+    content: ' >';
   }
 }
 

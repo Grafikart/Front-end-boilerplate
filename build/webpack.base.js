@@ -2,6 +2,7 @@
 const path = require('path')
 const webpack = require('webpack')
 const config = require('./config')
+const StyleLintPlugin = require('stylelint-webpack-plugin')
 
 const postcss = {
   plugins: [
@@ -92,6 +93,14 @@ let webpack_base = {
   devServer: {
     headers: { "Access-Control-Allow-Origin": "*" }
   }
+}
+
+if (config.stylelint) {
+  webpack_base.plugins.push(
+    new StyleLintPlugin({
+      files: config.stylelint
+    })
+  )
 }
 
 if (config.html) {

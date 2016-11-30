@@ -47,6 +47,8 @@
     "sass-loader": "^4.0.2",
     "shelljs": "^0.7.0",
     "style-loader": "^0.13.1",
+    "stylelint-config-standard": "^15.0.0",
+    "stylelint-webpack-plugin": "^0.4.0",
     "url-loader": "^0.5.7",
     "vue-loader": "^10.0.1",
     "vue-template-compiler": "^2.1.3",
