@@ -5,10 +5,12 @@
 Parce que j'en avais plein le cul de copier les fichiers de projets en projets et de configurer tout le bordel.
 Le but du dépôt n'est pas d'avoir une config bullet proof capable de gérer tous les cas mais juste de répondre à mes besoins et démarrer plus rapidement mes projets.
 
-- git clone
-- cd XXX
-- npm install
-- npm run dev
+```shell
+git clone https://github.com/Grafikart/Front-end-boilerplate.git
+cd Front-end-boilerplate
+yarn
+npm run dev
+```
 
 Cela crée un serveur distribuant les assets sur http://localhost:3003 que l'on peut utiliser depuis son application PHP / Rails ou autre. 
 Il suffit de charger le JS depuis ce serveur de développement sur l'environnement de dev.
@@ -28,7 +30,6 @@ if ($_SERVER['SERVER_PORT'] === '8080') { // On peut remplacer cette condition i
 ```
 
 ## Rails
-
 
 Pour remplacer le gestionnaire d'asset de rails qui est lent as fuck.
 On crée un initializer qui lie le json qui liste les assets : 
