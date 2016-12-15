@@ -3,6 +3,7 @@ const path = require('path')
 const webpack = require('webpack')
 const config = require('./config')
 const StyleLintPlugin = require('stylelint-webpack-plugin')
+const ExtractCSSPlugin = require('./extractCSSPlugin')
 
 const postcss = {
   plugins: [
@@ -13,10 +14,11 @@ const postcss = {
 }
 
 let webpack_base = {
+  devtool: config.debug ? 'cheap-module-eval-source-map' : false,
   entry: config.entry,
   output: {
     path: config.assets_path,
-    filename: '[name].js',
+    filename: config.debug ? '[name].js' : '[name].[chunkhash:8].js',
     publicPath: config.assets_url
   },
   resolve: {
@@ -53,16 +55,17 @@ let webpack_base = {
       },
       {
         test: /\.scss$/,
-        loader: [
-          'style-loader',
-          'css-loader',
-          'postcss-loader',
-          'sass-loader'
-        ]
+        loader:ExtractCSSPlugin.extract({
+          fallbackLoader: "style-loader",
+          loader: ['css-loader', 'postcss-loader', 'sass-loader']
+        })
       },
       {
         test: /\.css$/,
-        loader: ['css-loader', 'postcss-loader']
+        loader: ExtractCSSPlugin.extract({
+          fallbackLoader: "style-loader",
+          loader: ['css-loader', 'postcss-loader']
+        })
       }, {
         test: /\.(png|jpe?g|gif|svg|woff2?|eot|ttf|otf|wav)(\?.*)?$/,
         use: [{
@@ -82,12 +85,19 @@ let webpack_base = {
         postcss: postcss,
         vue: {
           loaders: {
-            scss: 'vue-style-loader!css-loader!sass-loader',
+            scss: ExtractCSSPlugin.extract({ 
+              fallbackLoader: "vue-style-loader",
+              loader: ['css-loader', 'postcss-loader', 'sass-loader']
+            }),
             js: 'babel-loader'
           },
           postcss: postcss
         }
       }
+    }),
+    new ExtractCSSPlugin({
+      filename: '[name].[contenthash:8].css',
+      disable: config.debug
     })
   ],
   devServer: {
