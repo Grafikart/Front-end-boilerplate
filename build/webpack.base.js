@@ -32,15 +32,9 @@ let webpack_base = {
   module: {
     rules: [
       {
-        test: /\.vue$/,
+        test: /\.(js|vue)$/,
         loader: 'eslint-loader',
         exclude: [/node_modules/],
-        enforce: 'pre'
-      },
-      {
-        test: /\.js$/,
-        loader: 'eslint-loader',
-        exclude: [/node_modules/, /libs/],
         enforce: 'pre'
       },
       {
@@ -85,7 +79,7 @@ let webpack_base = {
         postcss: postcss,
         vue: {
           loaders: {
-            scss: ExtractCSSPlugin.extract({ 
+            scss: ExtractCSSPlugin.extract({
               fallbackLoader: "vue-style-loader",
               loader: ['css-loader', 'postcss-loader', 'sass-loader']
             }),
@@ -102,6 +96,9 @@ let webpack_base = {
   ],
   devServer: {
     headers: { "Access-Control-Allow-Origin": "*" }
+  },
+  performance: {
+    hints: !config.debug
   }
 }
 
