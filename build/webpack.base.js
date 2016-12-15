@@ -98,7 +98,7 @@ let webpack_base = {
     headers: { "Access-Control-Allow-Origin": "*" }
   },
   performance: {
-    hints: !config.debug
+    hints: config.debug ? false : 'warning'
   }
 }
 
