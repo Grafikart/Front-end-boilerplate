@@ -9,7 +9,7 @@ class Asset
   public static function path($file)
   {
     $parts = explode('.', $file);
-    if (self::isLocal()) {
+    if (self::isLocal() && @fsockopen('localhost', 3003)) {
       if ($parts[1] === 'css') {
         return;
       }
