@@ -23,7 +23,7 @@ let webpack_base = {
     publicPath: config.assets_url
   },
   resolve: {
-    extensions: ['.tsx', '.ts', '.js', '.vue', '.css', '.json'],
+    extensions: ['.js', '.ts', '.vue', '.css', '.json'],
     alias: {
       root: path.join(__dirname, '../js'),
       components: path.join(__dirname, '../js/components'),
@@ -39,9 +39,15 @@ let webpack_base = {
         exclude: [/node_modules/],
         enforce: 'pre'
       },
+      {
+        test: /\.(ts|tsx)$/,
+        loader: 'tslint-loader',
+        exclude: [/node_modules/],
+        enforce: 'pre'
+      },
       // Loaders
       {
-        test: /\.(ts)$/,
+        test: /\.(ts|tsx)$/,
         use: ['awesome-typescript-loader']
       },
       {
@@ -84,6 +90,10 @@ let webpack_base = {
     new webpack.LoaderOptionsPlugin({
       options: {
         postcss: postcss,
+        tslint: {
+          emitErrors: true,
+          failOnHint: true
+        },
         vue: {
           loaders: {
             scss: ExtractCSSPlugin.extract({
