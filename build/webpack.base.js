@@ -4,6 +4,7 @@ const webpack = require('webpack')
 const config = require('./config')
 const StyleLintPlugin = require('stylelint-webpack-plugin')
 const ExtractCSSPlugin = require('./extractCSSPlugin')
+const CheckerPlugin = require('awesome-typescript-loader').CheckerPlugin
 
 const postcss = {
   plugins: [
@@ -22,7 +23,7 @@ let webpack_base = {
     publicPath: config.assets_url
   },
   resolve: {
-    extensions: ['.js', '.vue', '.css', '.json'],
+    extensions: ['.tsx', '.ts', '.js', '.vue', '.css', '.json'],
     alias: {
       root: path.join(__dirname, '../js'),
       components: path.join(__dirname, '../js/components'),
@@ -31,11 +32,17 @@ let webpack_base = {
   },
   module: {
     rules: [
+      // Linters
       {
         test: /\.(js|vue)$/,
         loader: 'eslint-loader',
         exclude: [/node_modules/],
         enforce: 'pre'
+      },
+      // Loaders
+      {
+        test: /\.(ts)$/,
+        use: ['awesome-typescript-loader']
       },
       {
         test: /\.js$/,
@@ -92,7 +99,14 @@ let webpack_base = {
     new ExtractCSSPlugin({
       filename: '[name].[contenthash:8].css',
       disable: config.debug
-    })
+    }),
+    /*
+    * Plugin: ForkCheckerPlugin
+    * Description: Do type checking in a separate process, so webpack don't need to wait.
+    *
+    * See: https://github.com/s-panferov/awesome-typescript-loader#forkchecker-boolean-defaultfalse
+    */
+    new CheckerPlugin(),
   ],
   devServer: {
     headers: { "Access-Control-Allow-Origin": "*" }
