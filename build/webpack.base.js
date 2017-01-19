@@ -48,7 +48,7 @@ let webpack_base = {
       // Loaders
       {
         test: /\.(ts|tsx)$/,
-        use: ['awesome-typescript-loader']
+        use: ['./build/vue-ts-loader', 'awesome-typescript-loader']
       },
       {
         test: /\.js$/,

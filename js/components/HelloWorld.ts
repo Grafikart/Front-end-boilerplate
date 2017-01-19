@@ -2,22 +2,21 @@ import Vue from 'vue'
 import { Component, prop } from 'vue-property-decorator'
 
 @Component({
-    template: `
-      <div>
-        <h1>Hello {{ name }}</h1>
-        <p>This component use {{ lang }} lol !</p>
-      </div>`
+  template: `
+    <div>
+      <h1>Hello {{ name }} how are you </h1>
+      <p @click="greet">This componentes use {{ lang }} !</p>
+    </div>`
 })
 
 export default class HelloWord extends Vue {
 
-    @prop(String)
-    name: String
+  @prop(String) name: string
 
-    lang = 'typescript'
+  lang = 'typescript'
 
-    greet () {
-        console.log('Welcome' + this.name)
-    }
+  greet () {
+    console.log('Welcome' + this.name)
+  }
 
 }
