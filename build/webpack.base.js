@@ -5,6 +5,7 @@ const config = require('./config')
 const StyleLintPlugin = require('stylelint-webpack-plugin')
 const ExtractCSSPlugin = require('./extractCSSPlugin')
 const CheckerPlugin = require('awesome-typescript-loader').CheckerPlugin
+const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin')
 
 const postcss = {
   plugins: [
@@ -117,6 +118,7 @@ let webpack_base = {
     * See: https://github.com/s-panferov/awesome-typescript-loader#forkchecker-boolean-defaultfalse
     */
     new CheckerPlugin(),
+    new FriendlyErrorsWebpackPlugin()
   ],
   devServer: {
     headers: { "Access-Control-Allow-Origin": "*" }

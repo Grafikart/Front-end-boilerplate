@@ -16,7 +16,7 @@ let refresh = function (path) {
 let server = new WebpackDevServer(compiler, {
   hot: true,
   historyApiFallback: config.historyApiFallback,
-  quiet: false,
+  quiet: true,
   noInfo: false,
   publicPath: webpack_dev.output.publicPath,
   stats: {

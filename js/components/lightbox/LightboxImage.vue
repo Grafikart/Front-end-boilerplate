@@ -39,8 +39,8 @@
         return {
           width: width + 'px',
           height: height + 'px',
-          top: (window.innerHeight - height) * 0.5 + 'px',
-          left: (window.innerWidth - width) * 0.5 + 'px'
+          top: ((window.innerHeight - height) * 0.5) + 'px',
+          left: ((window.innerWidth - width) * 0.5) + 'px'
         }
       }
       image.onload = function () {
