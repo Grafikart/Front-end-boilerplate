@@ -29,7 +29,6 @@ class Store {
     this.state.group = false
     this.state.index = false
   }
-
 }
 
 let store = new Store()
