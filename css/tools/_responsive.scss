@@ -14,7 +14,7 @@ body {
   top: 0;
   left: 0;
   right: 0;
-  transition: left 0.3s, right 0.3s;
+  transition: left .3s, right .3s;
 }
 
 .menu {
@@ -24,7 +24,7 @@ body {
   bottom: 0;
   right: -1 * $menu-width;
   width: $menu-width;
-  transition: right 0.3s;
+  transition: right .3s;
 
   .menu-open & {
     right: 0;
