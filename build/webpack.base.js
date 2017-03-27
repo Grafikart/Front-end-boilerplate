@@ -63,16 +63,16 @@ let webpack_base = {
       },
       {
         test: /\.scss$/,
-        loader:ExtractCSSPlugin.extract({
-          fallbackLoader: "style-loader",
-          loader: ['css-loader', 'postcss-loader', 'sass-loader']
+        use:ExtractCSSPlugin.extract({
+          fallback: "style-loader",
+          use: ['css-loader', 'postcss-loader', 'sass-loader']
         })
       },
       {
         test: /\.css$/,
-        loader: ExtractCSSPlugin.extract({
-          fallbackLoader: "style-loader",
-          loader: ['css-loader', 'postcss-loader']
+        use: ExtractCSSPlugin.extract({
+          fallback: "style-loader",
+          use: ['css-loader', 'postcss-loader']
         })
       }, {
         test: /\.(png|jpe?g|gif|svg|woff2?|eot|ttf|otf|wav)(\?.*)?$/,
@@ -98,8 +98,8 @@ let webpack_base = {
         vue: {
           loaders: {
             scss: ExtractCSSPlugin.extract({
-              fallbackLoader: "vue-style-loader",
-              loader: ['css-loader', 'postcss-loader', 'sass-loader']
+              fallback: "vue-style-loader",
+              use: ['css-loader', 'postcss-loader', 'sass-loader']
             }),
             js: 'babel-loader'
           },

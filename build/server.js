@@ -1,9 +1,9 @@
 'use strict'
 const WebpackDevServer = require('webpack-dev-server')
 const webpack = require('webpack')
-const webpack_dev = require('./webpack.dev')
+const webpackDev = require('./webpack.dev')
 const config = require('./config')
-const compiler = webpack(webpack_dev)
+const compiler = webpack(webpackDev)
 const hotMiddleware = require('webpack-hot-middleware')(compiler)
 const chokidar = require('chokidar')
 
@@ -18,7 +18,7 @@ let server = new WebpackDevServer(compiler, {
   historyApiFallback: config.historyApiFallback,
   quiet: true,
   noInfo: false,
-  publicPath: webpack_dev.output.publicPath,
+  publicPath: webpackDev.output.publicPath,
   stats: {
     colors: true,
     chunks: false

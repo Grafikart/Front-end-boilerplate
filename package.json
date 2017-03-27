@@ -49,6 +49,7 @@
     "sass-loader": "^6.0.2",
     "shelljs": "^0.7.6",
     "style-loader": "^0.13.1",
+    "stylelint": "^7.9.0",
     "stylelint-config-standard": "^16.0.0",
     "stylelint-webpack-plugin": "^0.7.0",
     "tslint": "^4.3.1",
