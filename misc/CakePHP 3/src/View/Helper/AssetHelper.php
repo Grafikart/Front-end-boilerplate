@@ -1,6 +1,8 @@
 <?php namespace App\View\Helper;
 
-class AssetHelper
+use Cake\View\Helper;
+
+class AssetHelper extends Helper
 {
     private $json = null;
 
