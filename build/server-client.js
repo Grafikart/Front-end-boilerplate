@@ -2,10 +2,10 @@
  This script is a partial rewrite of :
  https://github.com/glenjamin/webpack-hot-middleware/blob/master/client.js
 
- If our app is listening localhost:8080/ the hot middleware path would then be : localhost:8080/_webpack_hmr
+ If our app is listening at localhost:8080/ the hot middleware path would then be : localhost:8080/_webpack_hmr
 
  Here, we don't want that, the options var below just make the HMR listen on a dedicated port
- (hence the rewrite of the rest of the script to implement this feature).
+ (hence the rewrite of the rest of the original script to implement this feature).
  */
 
 /* eslint-disable */
