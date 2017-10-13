@@ -23,6 +23,11 @@ let server = new WebpackDevServer(compiler, {
     colors: true,
     chunks: false
   }
+  headers: {
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, PATCH, OPTIONS",
+    "Access-Control-Allow-Headers": "X-Requested-With, content-type, Authorization"
+  }
 })
 server.use(hotMiddleware)
 server.listen(config.port, function (err) {
