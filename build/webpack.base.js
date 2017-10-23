@@ -1,21 +1,9 @@
-'use strict'
 const path = require('path')
 const webpack = require('webpack')
 const config = require('./config')
-const StyleLintPlugin = require('stylelint-webpack-plugin')
 const ExtractCSSPlugin = require('./extractCSSPlugin')
-const CheckerPlugin = require('awesome-typescript-loader').CheckerPlugin
-const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin')
 
-const postcss = {
-  plugins: [
-    require('autoprefixer')({
-      browsers: config.browsers
-    })
-  ]
-}
-
-let webpack_base = {
+let webpackBase = {
   devtool: config.debug ? 'cheap-module-eval-source-map' : false,
   entry: config.entry,
   output: {
@@ -40,17 +28,7 @@ let webpack_base = {
         exclude: [/node_modules/],
         enforce: 'pre'
       },
-      {
-        test: /\.(ts|tsx)$/,
-        loader: 'tslint-loader',
-        exclude: [/node_modules/],
-        enforce: 'pre'
-      },
       // Loaders
-      {
-        test: /\.(ts|tsx)$/,
-        use: ['./build/vue-ts-loader', 'awesome-typescript-loader']
-      },
       {
         test: /\.js$/,
         exclude: [/node_modules/, /libs/],
@@ -63,15 +41,15 @@ let webpack_base = {
       },
       {
         test: /\.scss$/,
-        use:ExtractCSSPlugin.extract({
-          fallback: "style-loader",
+        use: ExtractCSSPlugin.extract({
+          fallback: 'style-loader',
           use: ['css-loader', 'postcss-loader', 'sass-loader']
         })
       },
       {
         test: /\.css$/,
         use: ExtractCSSPlugin.extract({
-          fallback: "style-loader",
+          fallback: 'style-loader',
           use: ['css-loader', 'postcss-loader']
         })
       }, {
@@ -82,15 +60,20 @@ let webpack_base = {
             limit: 10,
             name: '[name].[hash:7].[ext]'
           }
-        }],
-
+        }]
+      }, {
+        test: /\.ejs$/,
+        loader: 'ejs-loader'
       }
     ]
   },
   plugins: [
+    new webpack.ProvidePlugin({
+      _: 'lodash',
+      faker: 'faker'
+    }),
     new webpack.LoaderOptionsPlugin({
       options: {
-        postcss: postcss,
         tslint: {
           emitErrors: true,
           failOnHint: true
@@ -98,12 +81,11 @@ let webpack_base = {
         vue: {
           loaders: {
             scss: ExtractCSSPlugin.extract({
-              fallback: "vue-style-loader",
+              fallback: 'vue-style-loader',
               use: ['css-loader', 'postcss-loader', 'sass-loader']
             }),
             js: 'babel-loader'
-          },
-          postcss: postcss
+          }
         }
       }
     }),
@@ -111,40 +93,29 @@ let webpack_base = {
       filename: '[name].[contenthash:8].css',
       disable: config.debug
     }),
-    /*
-    * Plugin: ForkCheckerPlugin
-    * Description: Do type checking in a separate process, so webpack don't need to wait.
-    *
-    * See: https://github.com/s-panferov/awesome-typescript-loader#forkchecker-boolean-defaultfalse
-    */
-    new CheckerPlugin(),
-    new FriendlyErrorsWebpackPlugin()
+    // new FriendlyErrorsWebpackPlugin()
   ],
   devServer: {
-    headers: { "Access-Control-Allow-Origin": "*" }
+    headers: { 'Access-Control-Allow-Origin': '*' }
   },
   performance: {
     hints: config.debug ? false : 'warning'
   }
 }
 
-if (config.stylelint) {
-  webpack_base.plugins.push(
-    new StyleLintPlugin({
-      files: config.stylelint
-    })
-  )
-}
-
 if (config.html) {
   const HtmlWebpackPlugin = require('html-webpack-plugin')
-  webpack_base.plugins.push(
-    new HtmlWebpackPlugin({
-      filename: 'index.html',
-      template: 'index.html',
-      inject: true
-    })
-  )
+  const glob = require('glob')
+  const files = glob.sync('*.ejs')
+  files.forEach(file => {
+    webpackBase.plugins.push(
+      new HtmlWebpackPlugin({
+        filename: file.replace('.ejs', '.html'),
+        template: file,
+        inject: true
+      })
+    )
+  })
 }
 
-module.exports = webpack_base
+module.exports = webpackBase
