@@ -1,9 +1,19 @@
-# C'est quoi ce dépôt ?
+:package: Ma Configuration Webpack
+==================================
 
 [![travis badge](https://travis-ci.org/Grafikart/Front-end-boilerplate.svg)](https://travis-ci.org/Grafikart/Front-end-boilerplate)
 
-Parce que j'en avais plein le cul de copier les fichiers de projets en projets et de configurer tout le bordel.
-Le but du dépôt n'est pas d'avoir une config bullet proof capable de gérer tous les cas mais juste de répondre à mes besoins et démarrer plus rapidement mes projets.
+Chaque fois que l'on commence un projet on est obligé de configurer les outils avant de pouvoir commencer et à chaque fois rien ne marche comme attendu.
+
+![](https://media.giphy.com/media/QXxAGtM56RP6E/giphy.gif)
+
+Pour éviter ça, ce dépôt contient ma configuration fonctionnelle pour la compilation d'assets JS / CSS / img.
+Le but du dépôt n'est pas d'avoir une config bullet proof capable de gérer tous les cas mais juste de répondre à mes besoins pour démarrer plus rapidement.
+
+:triangular_ruler: Comment ça marche ?
+------------------
+
+On sait jamais si je perds la mémoire un jour...
 
 ```shell
 git clone https://github.com/Grafikart/Front-end-boilerplate.git
@@ -12,24 +22,25 @@ yarn
 npm run dev
 ```
 
-Cela crée un serveur distribuant les assets sur http://localhost:3003 que l'on peut utiliser depuis son application PHP / Rails ou autre. 
-Il suffit de charger le JS depuis ce serveur de développement sur l'environnement de dev.
+Cela crée un serveur distribuant les assets sur http://localhost:8080 que l'on peut utiliser depuis son application PHP / Rails ou autre. 
+Il suffit de charger le JS depuis ce serveur de développement sur l'environnement de dev. Un dashboard permet de vérifier la "taille" des dépendances sur http://localhost:8888
 
-![](http://media.giphy.com/media/shrIxwJ2ojtrq/giphy.gif)
+:computer: Integration
+------------------------ 
 
-## Wordpress
+### Wordpress
 
 ```php
 // Dans le fichier functions.php
 if ($_SERVER['SERVER_PORT'] === '8080') { // On peut remplacer cette condition ici
-    wp_enqueue_script('montheme-js', 'http://localhost:3002/assets/app.js', [], '1.0', true);
+    wp_enqueue_script('montheme-js', 'http://localhost:8080/main.js', [], '1.0', true);
 } else {
     wp_enqueue_style('montheme-style', get_template_directory_uri() . '/assets/app.css');
-    wp_enqueue_script('montheme-js', get_template_directory_uri() . '/assets/app.js', [], '1.0', true);
+    wp_enqueue_script('montheme-js', get_template_directory_uri() . '/assets/main.js', [], '1.0', true);
 }
 ```
 
-## Rails
+### Ruby on Rails
 
 Pour remplacer le gestionnaire d'asset de rails qui est lent as fuck.
 On crée un initializer qui lie le json qui liste les assets : 
@@ -71,7 +82,7 @@ module AssetHelper
       if url.split('.').last === 'css'
         return ''
       else
-        return '//localhost:3003/assets/' + url
+        return '//localhost:8080/' + url
       end
     end
   end
@@ -80,6 +91,9 @@ end
 
 ```
 
-## A faire
+:clock3: A faire 
+----------------
 
+- Donner un exemple Wordpress avec le manifest.json
+- Plus d'exemples ?
 - Trouver la grande question sur la vie, l'univers et le reste

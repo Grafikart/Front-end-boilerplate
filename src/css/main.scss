@@ -1,17 +1,19 @@
 /* Variables
    ========================================================================== */
-$color: rgba(#000000, .54);
+$color: #000;
 
 /* MISC
    ========================================================================== */
-@import "tools/reset";
+// @import "tools/reset";
 @import "tools/helpers";
 @import "tools/responsive";
 
 /* Generic
    ========================================================================== */
 body {
+  font-size: 16px;
   color: inherit;
+  background: #CCC;
 }
 
 /* Tools
