@@ -1,0 +1,36 @@
+---
+- name: Configuration de l'utilisateur
+  hosts: all
+  remote_user: root
+  tasks:
+  - include_vars:
+      file: vars.yml
+  - include_role:
+      name: install/user
+  - include_role:
+      name: install/git
+    when: git is defined and git[0] == '/'
+  - include_role:
+      name: install/ssl
+    when: https is defined and https
+  - include_role:
+      name: vhost
+  - name: "MySQL | Create Database {{ mysql_db }}"
+    mysql_db:
+      login_user: root
+      login_password: "{{ mysql_root_password }}"
+      db: "{{ mysql_db }}"
+      state: present
+    become: true
+    when: mysql_user is defined and mysql_user != false
+  - name: "MySQL | Create User {{ mysql_user }}"
+    mysql_user:
+      login_user: root
+      login_password: "{{ mysql_root_password }}"
+      name: "{{ mysql_user }}"
+      password: "{{ mysql_password }}"
+      host: localhost
+      priv: "{{ mysql_db }}.*:ALL"
+      state: present
+    become: true
+    when: mysql_user is defined and mysql_user != false

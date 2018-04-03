@@ -1,0 +1,27 @@
+---
+- name: MySQL | Install
+  apt:
+    name:
+      - mysql-server
+      - python-mysqldb
+    state: present
+- name: MySQL | Set root password
+  mysql_user:
+    check_implicit_admin: true
+    login_user: root
+    login_password: "{{ mysql_root_password }}"
+    user: root
+    host: localhost
+    password: "{{ mysql_root_password }}"
+- name: MySQL | Remove anon
+  mysql_user:
+    login_user: root
+    login_password: "{{ mysql_root_password }}"
+    user: ""
+    state: absent
+- name: MySQL | Remove test database
+  mysql_db:
+    login_user: root
+    login_password: "{{ mysql_root_password }}"
+    db: test
+    state: absent

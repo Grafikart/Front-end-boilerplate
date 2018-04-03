@@ -1,0 +1,16 @@
+set $path_info $fastcgi_path_info;
+
+fastcgi_index				index.php;
+fastcgi_split_path_info		^(.+\.php)(/.+)$;
+fastcgi_param PATH_INFO $path_info;
+fastcgi_param SCRIPT_FILENAME $realpath_root$fastcgi_script_name;
+fastcgi_param DOCUMENT_ROOT $realpath_root;
+fastcgi_intercept_errors	off;
+
+fastcgi_buffer_size	128k;
+fastcgi_buffers	256 16k;
+fastcgi_busy_buffers_size	256k;
+fastcgi_temp_file_write_size 256k;
+
+# default fastcgi_params
+include fastcgi_params;

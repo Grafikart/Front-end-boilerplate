@@ -1,0 +1,29 @@
+---
+- name: Installation du serveur
+  hosts: all
+  remote_user: root
+  tasks:
+  - include_vars:
+      file: vars.yml
+  - name: APT | Update & Upgrade
+    apt:
+      upgrade: dist
+      update_cache: yes
+  - include_role:
+      name: install/firewall
+  - include_role:
+      name: install/tools
+  - include_role:
+      name: install/php
+    when: (php is defined and php != false)
+  - include_role:
+      name: install/mysql
+    when: (mysql is defined and mysql)
+  - include_role:
+      name: install/nginx
+  - include_role:
+      name: install/nodejs
+  - apt:
+      name: redis-server
+      state: present
+    when: (redis is defined and redis != false)

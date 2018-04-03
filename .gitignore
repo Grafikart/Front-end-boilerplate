@@ -4,3 +4,4 @@ dist
 public
 .idea
 npm-debug*
+ansible/hosts

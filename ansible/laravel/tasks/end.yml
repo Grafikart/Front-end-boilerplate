@@ -1,0 +1,29 @@
+- name: LARAVEL | Config Cache
+  shell: php artisan config:cache
+  args:
+    chdir: "{{ ansistrano_release_path.stdout }}"
+- name: LARAVEL | Cache clear
+  shell: php artisan cache:clear
+  args:
+    chdir: "{{ ansistrano_release_path.stdout }}"
+- name: LARAVEL | View clear
+  shell: php artisan view:clear
+  args:
+    chdir: "{{ ansistrano_release_path.stdout }}"
+- name: LARAVEL | Migrate
+  shell: php artisan migrate --force
+  args:
+    chdir: "{{ ansistrano_release_path.stdout }}"
+- name: LARAVEL | Seed ?
+  stat:
+    path: "{{ ansistrano_shared_path }}/seeded"
+  register: seeded
+- name: LARAVEL | Seed
+  shell: php artisan db:seed --force
+  args:
+    chdir: "{{ ansistrano_release_path.stdout }}"
+  when: seeded.stat.exists == false
+- name: LARAVEL | Seeded
+  file:
+    path: "{{ ansistrano_shared_path }}/seeded"
+    state: touch

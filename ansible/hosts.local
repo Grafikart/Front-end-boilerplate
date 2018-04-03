@@ -1,0 +1,6 @@
+[web]
+domain.fr
+
+[web:vars]
+user=mondomaine
+domain=mon-domaine.fr

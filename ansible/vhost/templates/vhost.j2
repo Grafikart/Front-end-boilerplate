@@ -1,0 +1,77 @@
+server {
+{% if https is defined and https %}
+	listen 443 ssl;
+	listen [::]:443 ssl;
+{% else %}
+	listen 80;
+	listen [::]:80;
+{% endif %}
+
+	server_name {{ domain }};
+	root {{ path }}/current/public;
+
+	index index.html index.php;
+
+	access_log {{ path }}/shared/var/log/access.log;
+	error_log {{ path }}/shared/var/log/error.log warn;
+
+
+{% if https is defined and https %}
+	# SSL
+	ssl_certificate /etc/letsencrypt/live/{{ domain }}/fullchain.pem;
+	ssl_certificate_key /etc/letsencrypt/live/{{ domain }}/privkey.pem;
+	ssl_trusted_certificate /etc/letsencrypt/live/{{ domain }}/fullchain.pem;
+{% endif %}
+
+	include snippets/general.conf;
+
+{% if php is defined and php %}
+	location / {
+		try_files $uri $uri/ /index.php?$query_string;
+	}
+
+  location ~ \.php {
+    include snippets/php.conf;
+    fastcgi_pass unix:/var/run/php/php{{ php }}-fpm.sock;
+  }
+{% endif %}
+
+}
+
+# subdomains redirect
+server {
+{% if https is defined and https %}
+	listen 443 ssl;
+	listen [::]:443 ssl;
+{% else %}
+	listen 80;
+	listen [::]:80;
+{% endif %}
+
+	server_name *.{{ domain }};
+
+{% if https is defined and https %}
+	# SSL
+	ssl_certificate /etc/letsencrypt/live/{{ domain }}/fullchain.pem;
+	ssl_certificate_key /etc/letsencrypt/live/{{ domain }}/privkey.pem;
+	ssl_trusted_certificate /etc/letsencrypt/live/{{ domain }}/fullchain.pem;
+{% endif %}
+
+	return 301 http{% if https is defined and https %}s{% endif %}://{{ domain }}$request_uri;
+}
+
+{% if https is defined and https %}
+# HTTP redirect
+server {
+	listen 80;
+	listen [::]:80;
+
+	server_name .{{ domain }};
+
+	include snippets/letsencrypt.conf;
+
+	location / {
+		return 301 https://{{ domain }}$request_uri;
+	}
+}
+{% endif %}

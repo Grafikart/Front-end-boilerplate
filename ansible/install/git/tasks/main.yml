@@ -1,0 +1,24 @@
+- name: "GIT | Initialisation du dossier {{ git }}"
+  command: "git init --bare {{ git }}"
+  args:
+    creates: "{{ git }}"
+  become: true
+  become_user: "{{ user }}"
+- name: GIT | init
+  command: git init
+  args:
+    creates: .git
+    chdir: "{{ playbook_dir | dirname }}"
+  delegate_to: 127.0.0.1
+- name: GIT | List remote
+  command: git remote -v
+  register: git_remote
+  delegate_to: 127.0.0.1
+  args:
+    chdir: "{{ playbook_dir | dirname }}"
+- name: GIT | git remote add origin
+  command: git remote add origin ssh://{{ user }}@{{ inventory_hostname }}:{{ git }}
+  args:
+    chdir: "{{ playbook_dir | dirname }}"
+  when: ((git_remote.stdout_lines | length) == 0)
+  delegate_to: 127.0.0.1

@@ -1,0 +1,11 @@
+---
+- include_vars:
+    file: vars/main.yml
+- name: "Nginx | Vhost {{ domain }}"
+  template:
+    src: vhost.j2
+    dest: "/etc/nginx/sites-enabled/{{ domain }}"
+  notify: nginx reload
+  become: true
+- include_role:
+    name: carlosbuenosvinos.ansistrano-deploy

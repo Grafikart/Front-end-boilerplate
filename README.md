@@ -1,4 +1,4 @@
-:package: Ma Configuration Webpack
+:package: Ma Configuration
 ==================================
 
 [![travis badge](https://travis-ci.org/Grafikart/Front-end-boilerplate.svg)](https://travis-ci.org/Grafikart/Front-end-boilerplate)
@@ -7,7 +7,7 @@ Chaque fois que l'on commence un projet on est obligé de configurer les outils 
 
 ![](https://media.giphy.com/media/QXxAGtM56RP6E/giphy.gif)
 
-Pour éviter ça, ce dépôt contient ma configuration fonctionnelle pour la compilation d'assets JS / CSS / img.
+Pour éviter ça, ce dépôt contient ma configuration fonctionnelle pour la compilation d'assets JS / CSS / img, la création du serveur de développement et le déploiement ansible.
 Le but du dépôt n'est pas d'avoir une config bullet proof capable de gérer tous les cas mais juste de répondre à mes besoins pour démarrer plus rapidement.
 
 :triangular_ruler: Comment ça marche ?
@@ -16,16 +16,14 @@ Le but du dépôt n'est pas d'avoir une config bullet proof capable de gérer to
 On sait jamais si je perds la mémoire un jour...
 
 ```shell
-git clone https://github.com/Grafikart/Front-end-boilerplate.git
-cd Front-end-boilerplate
-yarn
-npm run dev
+make dev # lance le serveur de dev
+make build # construit le projet 
+make clean # Nettoie le projet
+make test # Lance les tests unitaires
+make deploy # Déploie le projet
 ```
 
-Cela crée un serveur distribuant les assets sur http://localhost:8080 que l'on peut utiliser depuis son application PHP / Rails ou autre. 
-Il suffit de charger le JS depuis ce serveur de développement sur l'environnement de dev. Un dashboard permet de vérifier la "taille" des dépendances sur http://localhost:8888
-
-:computer: Integration
+:computer: Integration de Webpack
 ------------------------ 
 
 ### Wordpress
@@ -94,6 +92,7 @@ end
 :clock3: A faire 
 ----------------
 
-- Donner un exemple Wordpress avec le manifest.json
-- Plus d'exemples ?
+- Rendre le makefile dynamique (détecter le framework et adapter les commandes en fonction)
+- Mieux organiser les variables ansible
+- Finaliser les recettes de déploiement ansible (symfony, laravel, wordpress et rails)
 - Trouver la grande question sur la vie, l'univers et le reste

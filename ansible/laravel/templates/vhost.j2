@@ -1,0 +1,59 @@
+server {
+  listen 80;
+  listen [::]:80;
+
+  server_name {{ domain }};
+  root {{ ansistrano_deploy_to }}/current/public;
+
+  # index
+  index index.html index.php;
+
+	# logging
+	access_log {{ ansistrano_deploy_to }}/shared/storage/logs/access.log;
+	error_log {{ ansistrano_deploy_to }}/shared/storage/logs/error.log warn;
+
+  # $uri, index.php
+  location / {
+    try_files $uri $uri/ /index.php?$query_string;
+  }
+
+  # security headers
+  add_header X-Frame-Options "SAMEORIGIN" always;
+  add_header X-XSS-Protection "1; mode=block" always;
+  add_header X-Content-Type-Options "nosniff" always;
+  add_header Referrer-Policy "no-referrer-when-downgrade" always;
+  add_header Content-Security-Policy "default-src * data: 'unsafe-eval' 'unsafe-inline'" always;
+
+  # . files
+  location ~ /\. {
+    deny all;
+  }
+
+  # assets, media
+  location ~* \.(?:css(\.map)?|js(\.map)?|jpe?g|png|gif|ico|cur|heic|webp|tiff?|mp3|m4a|aac|ogg|midi?|wav|mp4|mov|webm|mpe?g|avi|ogv|flv|wmv)$ {
+    expires 7d;
+    access_log off;
+  }
+
+  # svg, fonts
+  location ~* \.(?:svgz?|ttf|ttc|otf|eot|woff|woff2)$ {
+    add_header Access-Control-Allow-Origin "*";
+    expires 7d;
+    access_log off;
+  }
+
+  # gzip
+  gzip on;
+  gzip_vary on;
+  gzip_proxied any;
+  gzip_comp_level 6;
+  gzip_types text/plain text/css text/xml application/json application/javascript application/xml+rss application/atom+xml image/svg+xml;
+
+{% if php %}
+  location ~ \.php {
+    include snippets/fastcgi-php.conf;
+    fastcgi_pass unix:/var/run/php/php{{ php }}-fpm.sock;
+  }
+{% endif %}
+
+}

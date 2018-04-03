@@ -1,0 +1,17 @@
+- name: "USER | Creation de {{ user }}"
+  user:
+    name: "{{ user }}"
+    shell: /bin/bash
+- name: USER | Clef SSH
+  authorized_key:
+    user: "{{ user }}"
+    state: present
+    key: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
+- name: "USER | Sudoers {{ user }}"
+  lineinfile:
+    dest: /etc/sudoers
+    state: present
+    regexp: "^{{ user }}"
+    line: '{{ user }} ALL=(ALL) NOPASSWD: ALL'
+    validate: 'visudo -cf %s'
+  when: sudo is defined and sudo

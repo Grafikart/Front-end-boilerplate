@@ -1,0 +1,18 @@
+---
+laravel_shared_path:
+  - storage/framework/cache
+  - storage/framework/messages
+  - storage/framework/sessions
+  - storage/framework/views
+  - storage/logs
+  - storage/app
+laravel_shared_files:
+  - .env
+ansistrano_shared_paths: "{{ shared_paths }} + {{ laravel_shared_path }}"
+ansistrano_shared_files: "{{ shared_files }} + {{ laravel_shared_files }}"
+ansistrano_before_symlink_shared_tasks_file: "{{ playbook_dir }}/laravel/tasks/before_symlink.yml"
+ansistrano_after_symlink_tasks_file: "{{ playbook_dir }}/laravel/tasks/end.yml"
+ansistrano_deploy_to: "{{ path }}"
+ansistrano_allow_anonymous_stats: false
+ansistrano_keep_releases: 3
+ansistrano_deploy_via: git

@@ -1,0 +1,16 @@
+php: 7.2
+mysql: false
+https: true
+path: "/home/{{ user }}/{{ domain }}"
+git: "{{ path }}.git" # git repository
+sudo: false # L'utilisateur est sudoer ?
+releases: 2
+# mysql_db: "{{ user }}"
+# mysql_user: "{{ user }}"
+# mysql_password: ""
+# mysql_root_password: ""
+# auth_username: "login"
+# auth_password: "passwd"
+# npm_globals: []
+shared_paths: []
+shared_files: []

@@ -1,0 +1,23 @@
+- name: SYMFONY | .env
+  template:
+    src: env.j2
+    dest: "{{ ansistrano_shared_path }}/.env"
+- name: SYMFONY | cache
+  file:
+    path: "{{ ansistrano_release_path.stdout }}/var"
+    state: directory
+    mode: u=rwx,g=rwx,o=rwx,g+s
+- name: SYMFONY | cache ACL
+  acl:
+    default: yes
+    path: "{{ ansistrano_release_path.stdout }}/var"
+    entity: "{{ user }}"
+    etype: user
+    permissions: rwx
+    recursive: true
+    state: present
+- name: SYMFONY | Composer install
+  composer:
+    command: install
+    working_dir: "{{ ansistrano_release_path.stdout }}"
+    optimize_autoloader: true

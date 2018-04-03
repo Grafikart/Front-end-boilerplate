@@ -1,0 +1,42 @@
+- name: "MySQL | Create Database {{ mysql_db }}"
+  mysql_db:
+    login_user: root
+    login_password: "{{ mysql_root_password }}"
+    db: "{{ mysql_db }}"
+    state: present
+  become: true
+- name: "MySQL | Create User {{ mysql_user }}"
+  mysql_user:
+    login_user: root
+    login_password: "{{ mysql_root_password }}"
+    name: "{{ mysql_user }}"
+    password: "{{ mysql_password }}"
+    host: localhost
+    priv: "{{ mysql_db }}.*:ALL"
+    state: present
+  become: true
+- name: LARAVEL | Composer install
+  composer:
+    command: install
+    working_dir: "{{ ansistrano_release_path.stdout }}"
+    optimize_autoloader: true
+- name: LARAVEL | App key generate
+  shell: "php artisan key:generate --show > {{ ansistrano_shared_path }}/app_key"
+  args:
+    chdir: "{{ ansistrano_release_path.stdout }}"
+    creates: "{{ ansistrano_shared_path }}/app_key"
+- name: LARAVEL | Reading App key
+  command: "cat {{ ansistrano_shared_path }}/app_key"
+  register: app_key
+- name: LARAVEL | .env
+  template:
+    src: env.j2
+    dest: "{{ ansistrano_shared_path }}/.env"
+- name: LARAVEL | Yarn
+  command: yarn
+  args:
+    chdir: "{{ ansistrano_release_path.stdout }}"
+- name: LARAVEL | build assets
+  command: npm run prod
+  args:
+    chdir: "{{ ansistrano_release_path.stdout }}"

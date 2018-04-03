@@ -1,0 +1,9 @@
+---
+- name: Installation du serveur
+  hosts: all
+  remote_user: "{{ user }}"
+  tasks:
+  - include_vars:
+      file: vars.yml
+  - include_role:
+      name: symfony

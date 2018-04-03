@@ -1,0 +1,37 @@
+version: '3'
+services:
+  php:
+    build: ./docker/php
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/usr/src/myapp
+    links:
+      - database
+      - mail
+  database:
+    build: ./docker/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: app
+    volumes:
+      - data:/var/lib/mysql
+  mail:
+    image: djfarrelly/maildev
+    ports:
+      - "1080:80"
+  node:
+    build: ./docker/node
+    working_dir: /home/node/app
+    volumes:
+      - .:/home/node/app
+
+  start_dependencies:
+    image: dadarek/wait-for-dependencies
+    depends_on:
+      - database
+    command: database:3306
+    environment:
+      SLEEP_LENGTH: 1
+volumes:
+  data: {}

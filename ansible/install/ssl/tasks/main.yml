@@ -1,0 +1,24 @@
+- name: SSL | certbot ppa
+  apt_repository:
+    repo: ppa:certbot/certbot
+    state: present
+- name: SSL | certbot install
+  apt:
+    name: certbot
+    state: present
+    update_cache: true
+- name: SSL | ACME-challenge directory
+  file:
+    dest: /var/www/_letsencrypt
+    owner: www-data
+    state: directory
+- name: SSL | nginx vhost
+  template:
+    src: vhost.j2
+    dest: "/etc/nginx/sites-enabled/{{ domain }}"
+  notify: nginx reload
+- name: SSL | Creation du certificat
+  command: "certbot certonly --webroot -d {{ domain }} -d www.{{ domain }} --email {{ email }} -w /var/www/_letsencrypt -n --agree-tos --force-renewal"
+  args:
+    creates: "/etc/letsencrypt/live/{{ domain }}/fullchain.pem"
+

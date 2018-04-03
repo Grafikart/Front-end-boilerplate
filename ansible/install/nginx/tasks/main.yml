@@ -1,0 +1,41 @@
+---
+- name: Nginx | Install
+  apt:
+    name: nginx
+    state: present
+- name: Nginx | Python passlib
+  when: auth_username != false
+  apt:
+    name: python-passlib
+    state: present
+- name: Nginx | Htpasswd
+  when: auth_username != false
+  htpasswd:
+    path: "{{ ansistrano_deploy_to }}/shared/.htpasswd"
+    name: "{{ auth_username }}"
+    password: "{{ auth_password }}"
+- name: Nginx | Default vhost
+  template:
+    src: default.j2
+    dest: "/etc/nginx/sites-available/default"
+- name: Nginx | _general
+  template:
+    src: general.j2
+    dest: "/etc/nginx/snippets/general.conf"
+- name: Nginx | Snippets php
+  template:
+    src: php.j2
+    dest: "/etc/nginx/snippets/php.conf"
+- name: Nginx | Snippets letsencrypt
+  template:
+    src: letsencrypt.j2
+    dest: "/etc/nginx/snippets/letsencrypt.conf"
+- name: SSL | Diffie Hellman
+  command: openssl dhparam -dsaparam -out /etc/nginx/dhparam.pem 2048
+  args:
+    creates: /etc/nginx/dhparam.pem
+- name: Nginx | Config
+  template:
+    src: conf.j2
+    dest: "/etc/nginx/nginx.conf"
+  notify: nginx restart
