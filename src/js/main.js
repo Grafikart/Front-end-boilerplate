@@ -1,3 +1,1 @@
-import hello from './hello'
-
-document.querySelector('.lead').innerHTML = hello
+console.log('Hello world')

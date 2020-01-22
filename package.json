@@ -2,46 +2,24 @@
   "name": "grafikart-boilerplate",
   "version": "0.0.1",
   "scripts": {
-    "updates": "npm-check-updates -u",
-    "build": "cross-env NODE_ENV=production webpack",
-    "dev": "cross-env NODE_ENV=development webpack-dev-server --inline --hot --no-info",
-    "gh": "npm run build && gh-pages -d dist"
+    "updates": "npm-check-updates -u"
   },
   "author": "Grafikart <contact@grafikart.fr>",
   "license": "MIT",
-  "dependencies": {
-    "npm": "^5.8.0"
-  },
+  "dependencies": {},
   "devDependencies": {
-    "@babel/core": "^7.0.0-beta.40",
-    "@babel/preset-env": "^7.0.0-beta.40",
-    "@babel/preset-stage-2": "^7.0.0-beta.40",
-    "autoprefixer": "^8.1.0",
-    "babel-eslint": "^8.2.2",
-    "babel-loader": "^8.0.0-beta.0",
-    "cross-env": "^5.1.3",
-    "css-loader": "^0.28.10",
-    "css-mqpacker": "^6.0.2",
-    "eslint": "^4.18.2",
-    "eslint-config-standard": "^11.0.0",
-    "eslint-loader": "^2.0.0",
-    "eslint-plugin-import": "^2.9.0",
-    "eslint-plugin-node": "^6.0.1",
-    "eslint-plugin-promise": "^3.6.0",
-    "eslint-plugin-standard": "^3.0.1",
-    "extract-text-webpack-plugin": "^4.0.0-beta.0",
-    "file-loader": "^1.1.11",
-    "html-webpack-plugin": "^3.0.4",
-    "imagemin-mozjpeg": "^7.0.0",
-    "imagemin-webpack-plugin": "^2.0.0",
-    "node-sass": "^4.7.2",
-    "postcss-loader": "^2.1.1",
-    "sass-loader": "^6.0.7",
-    "style-loader": "^0.20.2",
-    "webpack": "^4.1.0",
-    "webpack-bundle-analyzer": "^2.11.1",
-    "webpack-cli": "^2.0.10",
-    "webpack-dev-server": "^3.1.0",
-    "webpack-manifest-plugin": "^2.0.0-rc.2"
-  }
+    "npm-check-updates": "^4.0.1",
+    "parcel-bundler": "^1.12.4",
+    "sass": "^1.25.0"
+  },
+  "description": ":package: Ma Configuration ==================================",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Grafikart/boilerplate.git"
+  },
+  "keywords": [],
+  "bugs": {
+    "url": "https://github.com/Grafikart/boilerplate/issues"
+  },
+  "homepage": "https://github.com/Grafikart/boilerplate#readme"
 }

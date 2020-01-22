@@ -1,7 +1,5 @@
-node_modules
-npm-debug.log
-dist
-public
 .idea
-npm-debug*
-ansible/hosts
+dist
+node_modules
+vendor
+.cache

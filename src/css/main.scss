@@ -1,32 +1,27 @@
-/* Variables
-   ========================================================================== */
+// Variables
+// ==================
 $color: #000;
 
-/* MISC
-   ========================================================================== */
-// @import "tools/reset";
-@import "tools/helpers";
-@import "tools/responsive";
+// Outils
+// ==================
+@import "tools/reset";
+@import "tools/functions";
+@import "tools/mixins";
 
-/* Generic
-   ========================================================================== */
+// Generic
+// ==================
 body {
   font-size: 16px;
   color: inherit;
   background: #CCC;
 }
 
-/* Tools
-   ========================================================================== */
-// @import "tools/wordpress";
-@import "tools/layout";
-
-/* Modules
-   ========================================================================== */
+// Modules
+// ==================
 // @import "modules/comments";
 
-/* Pages
-   ========================================================================== */
+// Pages
+// ==================
 // @import "pages/single";
 // @import "pages/single";
 // @import "pages/single";
